@@ -1,0 +1,50 @@
+package com.tenthplayer.infrastructure.config;
+
+import com.tenthplayer.infrastructure.oauth.KakaoOAuth2UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    private final KakaoOAuth2UserService kakaoOAuth2UserService;
+
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                // 공개 엔드포인트
+                .requestMatchers(HttpMethod.GET, "/api/listings/**").permitAll()
+                .requestMatchers("/login/**", "/oauth2/**", "/error").permitAll()
+                // 나머지는 인증 필요
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(kakaoOAuth2UserService)
+                )
+                .defaultSuccessUrl(allowedOrigins, true)
+                .failureUrl("/login?error=true")
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl(allowedOrigins)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+            );
+
+        return http.build();
+    }
+}

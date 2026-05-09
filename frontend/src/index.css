@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bears-navy: #003087;
+  --color-bears-red: #CE1126;
+}
