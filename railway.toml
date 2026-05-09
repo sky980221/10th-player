@@ -1,5 +1,5 @@
 [build]
-buildCommand = "./gradlew build -x test"
+buildCommand = "./gradlew build -x test --stacktrace"
 
 [deploy]
 startCommand = "java -jar build/libs/tenthplayer-0.0.1-SNAPSHOT.jar"
