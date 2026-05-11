@@ -1,7 +1,7 @@
 import client from './client'
 
 export const getListings = (gameDate, stadium) =>
-  client.get('/listings', { params: { gameDate, stadium } }).then(r => r.data)
+  client.get('/listings', { params: { gameDate: gameDate || undefined, stadium: stadium || undefined } }).then(r => r.data)
 
 export const getMyListings = () =>
   client.get('/listings/mine').then(r => r.data)

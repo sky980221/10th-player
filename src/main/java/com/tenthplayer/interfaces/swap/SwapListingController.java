@@ -28,9 +28,9 @@ public class SwapListingController {
 
     @GetMapping
     public ResponseEntity<List<SwapListingResult>> browse(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate gameDate,
-            @RequestParam String stadium) {
-        return ResponseEntity.ok(swapListingService.browseByDateAndStadium(gameDate, stadium));
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate gameDate,
+            @RequestParam(required = false) String stadium) {
+        return ResponseEntity.ok(swapListingService.browse(gameDate, stadium));
     }
 
     @GetMapping("/mine")

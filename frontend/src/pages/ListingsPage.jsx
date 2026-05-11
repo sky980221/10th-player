@@ -13,10 +13,9 @@ export default function ListingsPage() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    if (!stadium) return
     setLoading(true)
     setError(null)
-    getListings(gameDate, stadium)
+    getListings(gameDate || null, stadium || null)
       .then(setListings)
       .catch(() => setError('불러오기 실패'))
       .finally(() => setLoading(false))
@@ -58,13 +57,6 @@ export default function ListingsPage() {
         </div>
       </div>
 
-      {!stadium && !loading && (
-        <div className="text-center text-gray-400 py-16">
-          <p className="text-4xl mb-2">🏟️</p>
-          <p>구장을 선택하면 매물이 표시됩니다.</p>
-        </div>
-      )}
-
       {loading && (
         <div className="flex justify-center py-12">
           <div className="w-8 h-8 border-4 border-[#003087] border-t-transparent rounded-full animate-spin" />
@@ -73,10 +65,16 @@ export default function ListingsPage() {
 
       {error && <p className="text-red-500 text-center py-8">{error}</p>}
 
-      {!loading && !error && listings.length === 0 && (
+      {!loading && !error && stadium && listings.length === 0 && (
         <div className="text-center text-gray-400 py-16">
           <p className="text-4xl mb-2">🪑</p>
-          <p>해당 날짜에 등록된 매물이 없습니다.</p>
+          <p>등록된 매물이 없습니다.</p>
+        </div>
+      )}
+      {!loading && !error && !stadium && listings.length === 0 && (
+        <div className="text-center text-gray-400 py-16">
+          <p className="text-4xl mb-2">🪑</p>
+          <p>아직 등록된 교환 매물이 없습니다.</p>
         </div>
       )}
 

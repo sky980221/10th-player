@@ -22,5 +22,8 @@ public interface SwapListingRepository extends JpaRepository<SwapListing, Long> 
             @Param("gameDate") LocalDate gameDate,
             @Param("stadium") String stadium);
 
+    @Query("SELECT sl FROM SwapListing sl WHERE sl.status = 'OPEN' ORDER BY sl.createdAt DESC")
+    List<SwapListing> findAllOpenListings();
+
     Optional<SwapListing> findByTicketIdAndStatusIn(Long ticketId, List<SwapListingStatus> statuses);
 }

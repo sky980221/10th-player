@@ -52,7 +52,12 @@ public class SwapListingService {
         return SwapListingResult.from(listing);
     }
 
-    public List<SwapListingResult> browseByDateAndStadium(LocalDate gameDate, String stadium) {
+    public List<SwapListingResult> browse(LocalDate gameDate, String stadium) {
+        if (gameDate == null && (stadium == null || stadium.isBlank())) {
+            return swapListingRepository.findAllOpenListings().stream()
+                    .map(SwapListingResult::from)
+                    .toList();
+        }
         return swapListingRepository.findOpenListingsByGameDateAndStadium(gameDate, stadium).stream()
                 .map(SwapListingResult::from)
                 .toList();
