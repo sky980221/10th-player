@@ -53,7 +53,7 @@ public class SwapListingService {
     }
 
     public List<SwapListingResult> browse(LocalDate gameDate, String stadium) {
-        if (gameDate == null && (stadium == null || stadium.isBlank())) {
+        if (stadium == null || stadium.isBlank()) {
             return swapListingRepository.findAllOpenListings().stream()
                     .map(SwapListingResult::from)
                     .toList();
