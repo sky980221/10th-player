@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
@@ -50,6 +51,16 @@ public class SecurityConfig {
                 .requestMatchers("/login/**", "/oauth2/**", "/error").permitAll()
                 // 나머지는 인증 필요
                 .anyRequest().authenticated()
+            )
+            .exceptionHandling(ex -> ex
+                .defaultAuthenticationEntryPointFor(
+                    (request, response, authException) -> {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.setContentType("application/json;charset=UTF-8");
+                        response.getWriter().write("{\"message\":\"Unauthorized\"}");
+                    },
+                    request -> request.getRequestURI().startsWith("/api/")
+                )
             )
             .oauth2Login(oauth2 -> oauth2
                 .userInfoEndpoint(userInfo -> userInfo
