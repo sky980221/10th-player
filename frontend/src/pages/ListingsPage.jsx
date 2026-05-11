@@ -27,10 +27,10 @@ export default function ListingsPage() {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-[#003087]">교환 매물 목록</h2>
         <Link
-          to="/my-listings"
+          to="/swap"
           className="bg-[#003087] text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors"
         >
-          + 매물 등록
+          + 교환 등록
         </Link>
       </div>
 
@@ -86,29 +86,45 @@ export default function ListingsPage() {
             to={`/listings/${listing.id}`}
             className="block bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow"
           >
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-semibold text-[#003087]">
-                {listing.ownerNickname}
-              </span>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-semibold text-gray-700">{listing.ownerNickname}</span>
               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                listing.status === 'OPEN'
-                  ? 'bg-green-100 text-green-700'
-                  : 'bg-gray-100 text-gray-500'
+                listing.status === 'OPEN' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
               }`}>
                 {listing.status === 'OPEN' ? '교환 가능' : listing.status}
               </span>
             </div>
-            <div className="text-sm text-gray-600 space-y-0.5">
-              <p>📍 현재 좌석: {listing.section} {listing.row}열 {listing.seatNumber}번</p>
-              {listing.desiredSection && (
-                <p>🔄 원하는 구역: {listing.desiredSection}</p>
-              )}
-              {listing.note && (
-                <p className="text-gray-400 text-xs mt-1">{listing.note}</p>
-              )}
+
+            <div className="flex items-center gap-2">
+              <div className="flex-1 bg-[#003087]/5 rounded-lg p-3 text-center">
+                <p className="text-[10px] text-gray-400 mb-1">내 자리</p>
+                <p className="text-sm font-bold text-[#003087]">{listing.section}</p>
+                <p className="text-xs text-gray-500">
+                  {listing.row && `${listing.row}열 `}{listing.seatNumber}번
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center gap-0.5 px-1">
+                <div className="w-6 h-0.5 bg-gray-300 rounded" />
+                <span className="text-gray-400 text-sm">⇄</span>
+                <div className="w-6 h-0.5 bg-gray-300 rounded" />
+              </div>
+
+              <div className="flex-1 bg-[#CE1126]/5 rounded-lg p-3 text-center">
+                <p className="text-[10px] text-gray-400 mb-1">원하는 자리</p>
+                {listing.desiredSection ? (
+                  <p className="text-sm font-bold text-[#CE1126]">{listing.desiredSection}</p>
+                ) : (
+                  <p className="text-sm text-gray-300">무관</p>
+                )}
+              </div>
             </div>
-            <div className="mt-2 text-xs text-gray-400">
-              그룹 {listing.groupSize}명 · {listing.gameDate}
+
+            {listing.note && (
+              <p className="text-xs text-gray-400 mt-2 truncate">{listing.note}</p>
+            )}
+            <div className="mt-2 text-xs text-gray-300">
+              그룹 {listing.groupSize}명
             </div>
           </Link>
         ))}
