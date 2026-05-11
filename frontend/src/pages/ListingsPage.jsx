@@ -85,7 +85,7 @@ export default function ListingsPage() {
             to={`/listings/${listing.id}`}
             className="block bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow"
           >
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-semibold text-gray-700">{listing.ownerNickname}</span>
               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                 listing.status === 'OPEN' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
@@ -93,6 +93,7 @@ export default function ListingsPage() {
                 {listing.status === 'OPEN' ? '교환 가능' : listing.status}
               </span>
             </div>
+            <p className="text-xs text-gray-400 mb-3">{listing.gameDate} · {listing.stadium}</p>
 
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-[#003087]/5 rounded-lg p-3 text-center">
