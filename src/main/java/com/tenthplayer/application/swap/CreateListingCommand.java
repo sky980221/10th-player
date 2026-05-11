@@ -1,7 +1,14 @@
 package com.tenthplayer.application.swap;
 
+import java.time.LocalDate;
+
 public record CreateListingCommand(
-        Long ticketId,
+        String section,
+        String row,
+        String seatNumber,
+        LocalDate gameDate,
+        String stadium,
+        int partySize,
         String desiredSection,
         String note
 ) {}

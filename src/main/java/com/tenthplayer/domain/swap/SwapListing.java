@@ -44,6 +44,10 @@ public class SwapListing {
     @Column(length = 500)
     private String note;
 
+    @Column(name = "party_size", nullable = false)
+    @Builder.Default
+    private int partySize = 1;
+
     @Column(name = "group_size", nullable = false)
     @Builder.Default
     private int groupSize = 1;

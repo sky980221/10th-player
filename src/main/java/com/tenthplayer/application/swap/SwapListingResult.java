@@ -18,6 +18,7 @@ public record SwapListingResult(
         String status,
         String desiredSection,
         String note,
+        int partySize,
         int groupSize,
         LocalDateTime createdAt
 ) {
@@ -35,6 +36,7 @@ public record SwapListingResult(
                 listing.getStatus().name(),
                 listing.getDesiredSection(),
                 listing.getNote(),
+                listing.getPartySize(),
                 listing.getGroupSize(),
                 listing.getCreatedAt()
         );
