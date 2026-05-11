@@ -12,7 +12,7 @@ const STATUS_COLOR = {
 
 const EMPTY_FORM = {
   gameDate: '', stadium: '', section: '', row: '', seatNumber: '',
-  partySize: 1, desiredSection: '', note: '',
+  partySize: 1, isConsecutive: false, desiredSection: '', note: '',
 }
 
 export default function SwapRegistrationPage() {
@@ -150,6 +150,24 @@ export default function SwapRegistrationPage() {
             </div>
           </div>
 
+          {form.partySize >= 2 && (
+            <div>
+              <label className="text-xs text-gray-500 block mb-0.5">연석 여부</label>
+              <button
+                type="button"
+                onClick={() => setForm(f => ({ ...f, isConsecutive: !f.isConsecutive }))}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm transition-colors ${
+                  form.isConsecutive
+                    ? 'bg-[#003087] text-white border-[#003087]'
+                    : 'bg-white text-gray-500 border-gray-300 hover:border-[#003087]'
+                }`}
+              >
+                <span>{form.isConsecutive ? '✓' : '○'}</span>
+                연석 (붙어있는 자리)
+              </button>
+            </div>
+          )}
+
           <div>
             <label className="text-xs text-gray-500 block mb-0.5">원하는 구역 (선택)</label>
             <input
@@ -211,6 +229,11 @@ export default function SwapRegistrationPage() {
                   <p className="text-xs text-gray-500">
                     {listing.row && `${listing.row}열 `}{listing.seatNumber}번
                   </p>
+                  {listing.partySize >= 2 && (
+                    <p className="text-[10px] mt-1 font-medium text-[#003087]">
+                      {listing.isConsecutive ? '연석' : '비연석'}
+                    </p>
+                  )}
                 </div>
                 <span className="text-gray-300 text-lg">⇄</span>
                 <div className="flex-1 bg-[#CE1126]/5 rounded-lg p-3 text-center">

@@ -19,6 +19,7 @@ public record SwapListingResult(
         String desiredSection,
         String note,
         int partySize,
+        boolean isConsecutive,
         int groupSize,
         LocalDateTime createdAt
 ) {
@@ -37,6 +38,7 @@ public record SwapListingResult(
                 listing.getDesiredSection(),
                 listing.getNote(),
                 listing.getPartySize(),
+                listing.isConsecutive(),
                 listing.getGroupSize(),
                 listing.getCreatedAt()
         );

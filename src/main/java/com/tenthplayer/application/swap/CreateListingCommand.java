@@ -9,6 +9,7 @@ public record CreateListingCommand(
         LocalDate gameDate,
         String stadium,
         int partySize,
+        boolean isConsecutive,
         String desiredSection,
         String note
 ) {}

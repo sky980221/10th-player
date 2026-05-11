@@ -11,10 +11,11 @@ public record SwapListingRequest(
         LocalDate gameDate,
         String stadium,
         int partySize,
+        boolean isConsecutive,
         String desiredSection,
         String note
 ) {
     public CreateListingCommand toCommand() {
-        return new CreateListingCommand(section, row, seatNumber, gameDate, stadium, partySize, desiredSection, note);
+        return new CreateListingCommand(section, row, seatNumber, gameDate, stadium, partySize, isConsecutive, desiredSection, note);
     }
 }

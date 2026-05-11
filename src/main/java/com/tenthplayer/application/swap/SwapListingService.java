@@ -44,6 +44,7 @@ public class SwapListingService {
                 .owner(owner)
                 .ticket(ticket)
                 .partySize(command.partySize())
+                .isConsecutive(command.partySize() > 1 && command.isConsecutive())
                 .desiredSection(command.desiredSection())
                 .note(command.note())
                 .build());

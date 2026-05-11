@@ -102,6 +102,11 @@ export default function ListingsPage() {
                 <p className="text-xs text-gray-500">
                   {listing.row && `${listing.row}열 `}{listing.seatNumber}번
                 </p>
+                {listing.partySize >= 2 && (
+                  <p className="text-[10px] mt-1 font-medium text-[#003087]">
+                    {listing.isConsecutive ? '연석' : '비연석'}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col items-center gap-0.5 px-1">

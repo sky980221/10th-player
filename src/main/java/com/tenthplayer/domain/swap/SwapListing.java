@@ -48,6 +48,10 @@ public class SwapListing {
     @Builder.Default
     private int partySize = 1;
 
+    @Column(name = "is_consecutive", nullable = false)
+    @Builder.Default
+    private boolean isConsecutive = false;
+
     @Column(name = "group_size", nullable = false)
     @Builder.Default
     private int groupSize = 1;
