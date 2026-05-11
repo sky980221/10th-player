@@ -30,7 +30,7 @@ public class User {
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
