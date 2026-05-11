@@ -28,6 +28,7 @@ export default function ListingsPage() {
         <h2 className="text-xl font-bold text-[#003087]">교환 매물 목록</h2>
         <Link
           to="/swap"
+          state={{ openForm: true }}
           className="bg-[#003087] text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors"
         >
           + 교환 등록

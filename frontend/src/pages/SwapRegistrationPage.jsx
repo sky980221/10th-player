@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { getMyListings, createListing, cancelListing } from '../api/listings'
 import { STADIUMS } from '../constants/stadiums'
 
@@ -16,9 +17,10 @@ const EMPTY_FORM = {
 }
 
 export default function SwapRegistrationPage() {
+  const { state } = useLocation()
   const [listings, setListings] = useState([])
   const [loading, setLoading] = useState(true)
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(state?.openForm ?? false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
