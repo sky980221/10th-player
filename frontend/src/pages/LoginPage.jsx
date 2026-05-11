@@ -22,7 +22,7 @@ export default function LoginPage() {
         </div>
 
         <a
-          href="/oauth2/authorization/kakao"
+          href={`${import.meta.env.VITE_API_URL ?? ''}/oauth2/authorization/kakao`}
           className="w-full flex items-center justify-center gap-3 bg-[#FEE500] hover:bg-[#F6DC00] text-[#191919] font-semibold py-3 px-6 rounded-xl transition-colors"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
