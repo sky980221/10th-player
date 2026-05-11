@@ -51,8 +51,15 @@ public class SwapListingService {
         return SwapListingResult.from(listing);
     }
 
-    public List<SwapListingResult> browseByGameDate(LocalDate gameDate) {
-        return swapListingRepository.findOpenListingsByGameDate(gameDate).stream()
+    public List<SwapListingResult> browseByDateAndStadium(LocalDate gameDate, String stadium) {
+        return swapListingRepository.findOpenListingsByGameDateAndStadium(gameDate, stadium).stream()
+                .map(SwapListingResult::from)
+                .toList();
+    }
+
+    public List<SwapListingResult> getMyListings(CustomOAuth2User principal) {
+        User owner = findUser(principal);
+        return swapListingRepository.findByOwner(owner).stream()
                 .map(SwapListingResult::from)
                 .toList();
     }

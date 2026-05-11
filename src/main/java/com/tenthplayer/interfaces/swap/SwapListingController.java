@@ -28,8 +28,15 @@ public class SwapListingController {
 
     @GetMapping
     public ResponseEntity<List<SwapListingResult>> browse(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate gameDate) {
-        return ResponseEntity.ok(swapListingService.browseByGameDate(gameDate));
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate gameDate,
+            @RequestParam String stadium) {
+        return ResponseEntity.ok(swapListingService.browseByDateAndStadium(gameDate, stadium));
+    }
+
+    @GetMapping("/mine")
+    public ResponseEntity<List<SwapListingResult>> mine(
+            @AuthenticationPrincipal CustomOAuth2User principal) {
+        return ResponseEntity.ok(swapListingService.getMyListings(principal));
     }
 
     @DeleteMapping("/{listingId}")

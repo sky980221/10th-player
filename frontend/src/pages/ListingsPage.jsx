@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getListings } from '../api/listings'
+import { STADIUMS } from '../constants/stadiums'
 
 const today = () => new Date().toISOString().slice(0, 10)
 
 export default function ListingsPage() {
   const [gameDate, setGameDate] = useState(today())
+  const [stadium, setStadium] = useState('')
   const [listings, setListings] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (!stadium) return
     setLoading(true)
     setError(null)
-    getListings(gameDate)
+    getListings(gameDate, stadium)
       .then(setListings)
       .catch(() => setError('불러오기 실패'))
       .finally(() => setLoading(false))
-  }, [gameDate])
+  }, [gameDate, stadium])
 
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -31,15 +34,35 @@ export default function ListingsPage() {
         </Link>
       </div>
 
-      <div className="mb-4">
-        <label className="text-sm text-gray-600 block mb-1">경기 날짜</label>
-        <input
-          type="date"
-          value={gameDate}
-          onChange={e => setGameDate(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]"
-        />
+      <div className="flex gap-3 mb-4">
+        <div>
+          <label className="text-xs text-gray-500 block mb-1">경기 날짜</label>
+          <input
+            type="date"
+            value={gameDate}
+            onChange={e => setGameDate(e.target.value)}
+            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]"
+          />
+        </div>
+        <div className="flex-1">
+          <label className="text-xs text-gray-500 block mb-1">구장</label>
+          <select
+            value={stadium}
+            onChange={e => setStadium(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]"
+          >
+            <option value="">구장 선택</option>
+            {STADIUMS.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
       </div>
+
+      {!stadium && !loading && (
+        <div className="text-center text-gray-400 py-16">
+          <p className="text-4xl mb-2">🏟️</p>
+          <p>구장을 선택하면 매물이 표시됩니다.</p>
+        </div>
+      )}
 
       {loading && (
         <div className="flex justify-center py-12">

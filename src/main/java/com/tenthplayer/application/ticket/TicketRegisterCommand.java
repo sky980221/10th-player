@@ -7,5 +7,5 @@ public record TicketRegisterCommand(
         String row,
         String seatNumber,
         LocalDate gameDate,
-        String gameTitle
+        String stadium
 ) {}

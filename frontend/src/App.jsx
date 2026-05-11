@@ -5,8 +5,7 @@ import PrivateRoute from './components/PrivateRoute'
 import LoginPage from './pages/LoginPage'
 import ListingsPage from './pages/ListingsPage'
 import ListingDetailPage from './pages/ListingDetailPage'
-import MyTicketsPage from './pages/MyTicketsPage'
-import MyListingsPage from './pages/MyListingsPage'
+import SwapRegistrationPage from './pages/SwapRegistrationPage'
 import ChatPage from './pages/ChatPage'
 
 export default function App() {
@@ -19,8 +18,7 @@ export default function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<PrivateRoute><ListingsPage /></PrivateRoute>} />
             <Route path="/listings/:listingId" element={<PrivateRoute><ListingDetailPage /></PrivateRoute>} />
-            <Route path="/tickets" element={<PrivateRoute><MyTicketsPage /></PrivateRoute>} />
-            <Route path="/my-listings" element={<PrivateRoute><MyListingsPage /></PrivateRoute>} />
+            <Route path="/swap" element={<PrivateRoute><SwapRegistrationPage /></PrivateRoute>} />
             <Route path="/chat/:listingId" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
           </Routes>
         </main>

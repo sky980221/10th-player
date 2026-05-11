@@ -11,7 +11,7 @@ public record TicketResult(
         String row,
         String seatNumber,
         LocalDate gameDate,
-        String gameTitle,
+        String stadium,
         boolean swapped,
         LocalDateTime registeredAt
 ) {
@@ -22,7 +22,7 @@ public record TicketResult(
                 ticket.getSeatInfo().getRow(),
                 ticket.getSeatInfo().getSeatNumber(),
                 ticket.getGameDate(),
-                ticket.getGameTitle(),
+                ticket.getStadium(),
                 ticket.isSwapped(),
                 ticket.getRegisteredAt()
         );

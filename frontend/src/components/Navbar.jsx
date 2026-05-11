@@ -21,8 +21,7 @@ export default function Navbar() {
       {user && (
         <div className="flex items-center gap-4 text-sm">
           <Link to="/" className="hover:text-blue-200 transition-colors">둘러보기</Link>
-          <Link to="/tickets" className="hover:text-blue-200 transition-colors">내 티켓</Link>
-          <Link to="/my-listings" className="hover:text-blue-200 transition-colors">내 매물</Link>
+          <Link to="/swap" className="hover:text-blue-200 transition-colors">교환 등록</Link>
           <span className="text-blue-200">{user.nickname}</span>
           <button
             onClick={handleLogout}

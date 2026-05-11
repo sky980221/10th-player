@@ -37,7 +37,7 @@ public class TicketService {
                         .seatNumber(command.seatNumber())
                         .build())
                 .gameDate(command.gameDate())
-                .gameTitle(command.gameTitle())
+                .stadium(command.stadium())
                 .build());
 
         return TicketResult.from(ticket);

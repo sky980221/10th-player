@@ -47,6 +47,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                 // 공개 엔드포인트
+                .requestMatchers(HttpMethod.GET, "/api/listings/mine").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/listings/**").permitAll()
                 .requestMatchers("/login/**", "/oauth2/**", "/error").permitAll()
                 // 나머지는 인증 필요

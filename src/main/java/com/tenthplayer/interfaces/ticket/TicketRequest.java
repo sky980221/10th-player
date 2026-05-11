@@ -9,9 +9,9 @@ public record TicketRequest(
         String row,
         String seatNumber,
         LocalDate gameDate,
-        String gameTitle
+        String stadium
 ) {
     public TicketRegisterCommand toCommand() {
-        return new TicketRegisterCommand(section, row, seatNumber, gameDate, gameTitle);
+        return new TicketRegisterCommand(section, row, seatNumber, gameDate, stadium);
     }
 }

@@ -16,9 +16,11 @@ public interface SwapListingRepository extends JpaRepository<SwapListing, Long> 
     List<SwapListing> findByOwner(User owner);
 
     @Query("SELECT sl FROM SwapListing sl JOIN sl.ticket t " +
-           "WHERE sl.status = 'OPEN' AND t.gameDate = :gameDate " +
+           "WHERE sl.status = 'OPEN' AND t.gameDate = :gameDate AND t.stadium = :stadium " +
            "ORDER BY sl.createdAt DESC")
-    List<SwapListing> findOpenListingsByGameDate(@Param("gameDate") LocalDate gameDate);
+    List<SwapListing> findOpenListingsByGameDateAndStadium(
+            @Param("gameDate") LocalDate gameDate,
+            @Param("stadium") String stadium);
 
     Optional<SwapListing> findByTicketIdAndStatusIn(Long ticketId, List<SwapListingStatus> statuses);
 }

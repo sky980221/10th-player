@@ -32,8 +32,8 @@ public class Ticket {
     @Column(name = "game_date", nullable = false)
     private LocalDate gameDate;
 
-    @Column(name = "game_title", nullable = false, length = 100)
-    private String gameTitle;
+    @Column(name = "stadium", nullable = false, length = 100)
+    private String stadium;
 
     @Column(nullable = false)
     @Builder.Default
