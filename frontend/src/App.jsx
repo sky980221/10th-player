@@ -18,8 +18,8 @@ export default function App() {
         <main className="py-4">
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={<PrivateRoute><ListingsPage /></PrivateRoute>} />
-            <Route path="/listings/:listingId" element={<PrivateRoute><ListingDetailPage /></PrivateRoute>} />
+            <Route path="/" element={<ListingsPage />} />
+            <Route path="/listings/:listingId" element={<ListingDetailPage />} />
             <Route path="/swap" element={<PrivateRoute><SwapRegistrationPage /></PrivateRoute>} />
             <Route path="/my-swaps" element={<PrivateRoute><MySwapsPage /></PrivateRoute>} />
             <Route path="/my-chats" element={<PrivateRoute><MyChatPage /></PrivateRoute>} />
