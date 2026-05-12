@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -44,6 +45,28 @@ public class ChatService {
                 .findByListingAndCreatedAtAfterOrderByCreatedAtAsc(listing, after)
                 .stream()
                 .map(ChatMessageResult::from)
+                .toList();
+    }
+
+    public List<ChatRoomResult> getMyChatRooms(CustomOAuth2User principal) {
+        User user = findUser(principal);
+        List<SwapListing> listings = chatMessageRepository.findDistinctListingsBySender(user);
+        return listings.stream()
+                .map(listing -> {
+                    ChatMessage last = chatMessageRepository
+                            .findTop1ByListingOrderByCreatedAtDesc(listing)
+                            .stream().findFirst().orElse(null);
+                    return new ChatRoomResult(
+                            listing.getId(),
+                            listing.getTicket().getGameDate().toString(),
+                            listing.getTicket().getStadium(),
+                            listing.getOwner().getNickname(),
+                            last != null ? last.getContent() : "",
+                            last != null ? last.getCreatedAt() : null
+                    );
+                })
+                .sorted(Comparator.comparing(ChatRoomResult::lastMessageAt,
+                        Comparator.nullsLast(Comparator.reverseOrder())))
                 .toList();
     }
 

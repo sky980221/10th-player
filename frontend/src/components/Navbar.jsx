@@ -23,6 +23,7 @@ export default function Navbar() {
           <Link to="/" className="hover:text-blue-200 transition-colors">둘러보기</Link>
           <Link to="/swap" className="hover:text-blue-200 transition-colors">교환 등록</Link>
           <Link to="/my-swaps" className="hover:text-blue-200 transition-colors">내 교환</Link>
+          <Link to="/my-chats" className="hover:text-blue-200 transition-colors">내 채팅</Link>
           <span className="text-blue-200">{user.nickname}</span>
           <button
             onClick={handleLogout}

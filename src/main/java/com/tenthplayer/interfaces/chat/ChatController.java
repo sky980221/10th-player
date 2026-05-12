@@ -1,6 +1,7 @@
 package com.tenthplayer.interfaces.chat;
 
 import com.tenthplayer.application.chat.ChatMessageResult;
+import com.tenthplayer.application.chat.ChatRoomResult;
 import com.tenthplayer.application.chat.ChatService;
 import com.tenthplayer.infrastructure.oauth.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +14,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/chat/{listingId}/messages")
+@RequestMapping("/api/chat")
 @RequiredArgsConstructor
 public class ChatController {
 
     private final ChatService chatService;
 
-    @PostMapping
+    @GetMapping("/rooms")
+    public ResponseEntity<List<ChatRoomResult>> myRooms(
+            @AuthenticationPrincipal CustomOAuth2User principal) {
+        return ResponseEntity.ok(chatService.getMyChatRooms(principal));
+    }
+
+    @PostMapping("/{listingId}/messages")
     public ResponseEntity<ChatMessageResult> send(
             @AuthenticationPrincipal CustomOAuth2User principal,
             @PathVariable Long listingId,
@@ -27,8 +34,7 @@ public class ChatController {
         return ResponseEntity.ok(chatService.send(principal, request.toCommand(listingId)));
     }
 
-    // 5초 폴링: ?after=2024-01-01T12:00:00
-    @GetMapping
+    @GetMapping("/{listingId}/messages")
     public ResponseEntity<List<ChatMessageResult>> poll(
             @PathVariable Long listingId,
             @RequestParam(required = false)

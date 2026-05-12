@@ -7,6 +7,7 @@ import ListingsPage from './pages/ListingsPage'
 import ListingDetailPage from './pages/ListingDetailPage'
 import SwapRegistrationPage from './pages/SwapRegistrationPage'
 import MySwapsPage from './pages/MySwapsPage'
+import MyChatPage from './pages/MyChatPage'
 import ChatPage from './pages/ChatPage'
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/listings/:listingId" element={<PrivateRoute><ListingDetailPage /></PrivateRoute>} />
             <Route path="/swap" element={<PrivateRoute><SwapRegistrationPage /></PrivateRoute>} />
             <Route path="/my-swaps" element={<PrivateRoute><MySwapsPage /></PrivateRoute>} />
+            <Route path="/my-chats" element={<PrivateRoute><MyChatPage /></PrivateRoute>} />
             <Route path="/chat/:listingId" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
           </Routes>
         </main>
